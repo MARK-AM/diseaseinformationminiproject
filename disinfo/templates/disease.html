@@ -1,14 +1,17 @@
 {%extends 'base.html'%}
 {%block title%}What is a Disease?{%endblock title%}
 {%block body%}
-<div class="container my-4">
-    <h1>What is a Disease ?</h1>
-    <p>A disease is a particular abnormal condition that negatively affects the structure or function of
-        all or part of an organism, and that is not due to any immediate external injury.Diseases are often
-        known to be medical conditions that are associated with specific symptoms and signs.A disease may be
-        caused by external factors such as pathogens or by internal dysfunctions. For example, internal
-        dysfunctions of the immune system can produce a variety of different diseases, including various
-        forms of immunodeficiency, hypersensitivity, allergies and autoimmune disorders.
-    </p>
+<div class="container">
+<article class="blog-post">
+    {% for Info in allInfos %}
+        <h1 class="blog-post-title">{{Info.name}}</h1>
+ <hr>
+        <p><h3>Overview</h3></p>
+
+    <p>{{Info.overview}}</p>
+      </article>
+
+{% endfor %}
 </div>
+
 {%endblock body%}

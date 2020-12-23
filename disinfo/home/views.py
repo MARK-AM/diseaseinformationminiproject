@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse
 from datetime import datetime
 from home.models import Contact
 from django.contrib import messages
+from home.models import Info
 
 # Create your views here.
 def index(request):
@@ -25,8 +26,14 @@ def submitcontact(request):
         return render(request,'submitcontact.html')
 
 def disease(request):
-    return render(request,'disease.html')
+    allInfos = Info.objects.all()
+    print(allInfos)
+    context = {'allInfos': allInfos}
+    return render(request,'disease.html',context)
 
 def search(request):
-    search_word=request.POST.get('searchword','')
-    disease_names= ["heart", "disease","cancer","typhoid",}
+    query=request.GET['query']
+    allInfos=Info.objects.filter(name__icontains=query)
+    params={'allInfos': allInfos }
+    return render(request,'search.html', params)
+    #disease_names= ["heart", "disease","cancer","typhoid",]
