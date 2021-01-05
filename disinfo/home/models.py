@@ -17,6 +17,7 @@ class Info(models.Model):
     risk=models.TextField()
     causes=models.TextField()
     prev=models.TextField()
+    img=models.ImageField(default="")
     slug=models.CharField(max_length=130)
     date=models.DateField()
     def __str__(self):
