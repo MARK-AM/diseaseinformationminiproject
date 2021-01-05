@@ -1,7 +1,28 @@
 {%extends 'base.html'%}
-{%block title%}Search{%endblock title%}
-{%block body%}
-<div class="container">
+{%block title%}Search results{%endblock title%}
 
+{%block body%}
+<div class="container my-4">
+<h3>Search Results....</h3>
+    <article class="blog-post">
+    {% for Info in allInfos %}
+        <h1 class="blog-post-title">{{Info.name}}</h1>
+<hr>
+        <p><h3><u>Overview</u></h3></p>
+
+    <p>{{Info.overview}}</p>
+        <p><h3><u>Symptoms</u></h3></p>
+        <p>{{Info.symptoms}}</p>
+        <p><h3><u>Risks</u></h3></p>
+        <p>{{Info.risk}}</p>
+        <p><h3><u>Causes</u></h3></p>
+        <p>{{Info.causes}}</p>
+        <p><h3><u>Preventions</u></h3></p>
+        <p>{{Info.prev}}</p>
+
+
+      </article>
+
+{% endfor %}
 </div>
 {%endblock body%}
