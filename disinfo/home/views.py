@@ -37,3 +37,9 @@ def search(request):
     params={'allInfos': allInfos }
     return render(request,'search.html', params)
     #disease_names= ["heart", "disease","cancer","typhoid",]
+
+def home1(request):
+    return render(request,"home1.html")
+
+def whatisdisease(request):
+    return render(request,"whatisdisease.html")
