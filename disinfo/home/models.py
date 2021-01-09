@@ -24,3 +24,14 @@ class Info(models.Model):
         retstr=str(self.name)+"("+str(self.date)+")"
         return retstr
 
+class News(models.Model):
+    title=models.CharField(max_length=50,default="")
+    content=models.TextField(default="")
+    link=models.TextField(default="")
+    img1= models.ImageField(default="")
+    date=models.DateField()
+    def __str__(self):
+        retstr=str(self.title)
+        return retstr
+
+

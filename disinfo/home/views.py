@@ -1,12 +1,22 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,redirect
 from datetime import datetime
-from home.models import Contact
+from home.models import *
 from django.contrib import messages
-from home.models import Info
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from home.forms import CreateUserform
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 def index(request):
-    return render(request,'home.html')
+   return render(request,'home.html')
+
+def welcome(request):
+    allnewss = News.objects.all()
+    param = {'allnewss': allnewss}
+    return render(request, 'welcome.html', param)
+
 def about(request):
     return render(request,'about.html')
 def contact(request):
@@ -43,3 +53,39 @@ def home1(request):
 
 def whatisdisease(request):
     return render(request,"whatisdisease.html")
+
+def registerPage(request):
+    if request.user.is_authenticated:
+        return redirect('welcome')
+    else:
+        form=CreateUserform()
+
+        if request.method=='POST':
+            form=CreateUserform(request.POST)
+            if form.is_valid():
+                form.save()
+                user=form.cleaned_data.get('username')
+                messages.success(request,'Account was created for '+ user)
+                return redirect('login')
+
+    context={'form':form}
+    return render(request,'register.html',context)
+
+def loginPage(request):
+    if request.method=="POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        user=authenticate(request,username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('welcome')
+        else:
+            messages.info(request,"Username OR Password is incorrect")
+    context={}
+    return render(request,'login.html',context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
